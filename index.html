@@ -1,40 +1,170 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Full Screen Textarea</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: "Unilingua Regular", monospace;
-		}
-		textarea {
-			display: block;
-			box-sizing: border-box;
-			width: 100%;
-			height: 100vh;
-			border: none;
-			border-bottom: 1px solid transparent;
-			background-color: transparent;
-			font-size: 9rem;
-			padding: 2rem;
-			color: #333;
-			resize: none;
-			outline: none;
-			text-align: center;
-			font-family: "Unilingua Regular", monospace;
-		}
-	</style>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<style>
-		@font-face {
-			font-family: "Unilingua Regular";
-			src: url("Unilingua-Regular.ttf");
-		}
-	</style>
-</head>
-<body>
-	<textarea placeholder="Hello. Please type here"></textarea>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Full Screen Textarea</title>
+    <!-- Import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Unilingua Regular', monospace;
+      }
+      textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100vh;
+        border: none;
+        border-bottom: 1px solid transparent;
+        background-color: transparent;
+        font-size: 6rem;
+        padding: 2rem;
+        color: #333;
+        resize: none;
+        outline: none;
+        text-align: center;
+        font-family: 'Unilingua Regular', monospace;
+      }
+
+      #aboutsection {
+        font-family: 'OCRA', Arial, Helvetica, sans-serif;
+        position: absolute;
+        top: 0px;
+        left: -40vw;
+        z-index: 1000;
+        background-color: #fbfc66;
+        width: 40vw;
+        height: 100vh;
+        text-align: left;
+        line-height: 2em;
+      }
+
+      #open-modal {
+        position: absolute;
+        z-index: 1001;
+        width: 200px;
+        height: 60px;
+        top: 85vh;
+        left: calc(50vw - 100px);
+        font-family: 'OCRA', Arial, Helvetica, sans-serif;
+        font-size: 1.1em;
+        padding: 10px;
+        background-color: #fbfc66;
+        border: none;
+        border-radius: 30px;
+        /* Add a box shadow */
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      #open-modal-bg {
+        position: absolute;
+        z-index: 1000;
+        width: 220px;
+        height: 80px;
+        top: 83.6vh;
+        left: calc(50vw - 110px);
+        font-family: 'OCRA', Arial, Helvetica, sans-serif;
+        font-size: 1.1em;
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        border-radius: 40px;
+        filter: blur(10px);
+      }
+
+      h3 {
+        font-family: 'OCRA', Arial, Helvetica, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+      }
+
+      #open-modal:hover {
+        cursor: pointer;
+      }
+
+      #close {
+        font-weight: 200;
+		width: 100%;
+		text-align: right;
+      }
+
+      #big-x {
+        position: absolute;
+		right:10px;
+        transition: transform 0.25s, opacity 0.25s;
+        opacity: 0.7;
+        cursor: pointer;
+        font-size: 3em;
+      }
+
+      #big-x:before {
+        content: '\d7';
+      }
+
+      #big-x:hover {
+        cursor: pointer;
+        transform: rotate(90deg);
+      }
+    </style>
+    <style>
+      @font-face {
+        font-family: 'Unilingua Regular';
+        src: url('Unilingua-Regular.ttf');
+      }
+
+      @font-face {
+        font-family: 'OCRA';
+        src: url('OCR-A Regular.ttf');
+      }
+    </style>
+  </head>
+  <body>
+    <h3>unilingua-regular</h3>
+    <textarea placeholder="Hello. Please type here" autofocus></textarea>
+
+    <button id="open-modal">About Unilingua</button>
+    <button id="open-modal-bg"></button>
+
+    <div id="aboutsection">
+      <div id="close" style="width: 5px; font-size: 2em; padding-top: 10px;">
+        <span id="big-x">
+        </span>
+      </div>
+      <p style="padding: 30px;margin-top:50px;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor,
+        nisl eget ultricies tincidunt, nunc nisl aliquet nunc, eget aliquam ni
+      </p>
+    </div>
+
+    <!-- Script -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // When open-modal is on hover
+        $('#open-modal').hover(
+          function () {
+            $('#open-modal-bg').css('background-color', '#FBFC66')
+            // take out the box shadow of open-modal
+            $('#open-modal').css('box-shadow', 'none')
+          },
+          function () {
+            $('#open-modal-bg').css('background-color', 'transparent')
+            $('#open-modal').css('box-shadow', '0 0 10px 0 rgba(0,0,0,0.2)')
+          },
+        )
+
+        $('#open-modal').click(function () {
+          $('#aboutsection').animate({ left: '0vw' }, 300) // slide in
+          //   fade out the button
+          $('#open-modal').fadeOut(300)
+        })
+
+        $('#close').click(function () {
+          $('#aboutsection').animate({ left: '-40vw' }, 300) // slide out
+          $('#open-modal').fadeIn(300)
+        })
+      })
+    </script>
+  </body>
 </html>
